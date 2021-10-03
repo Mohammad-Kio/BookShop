@@ -10,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MVC.Models;
+using MVC.Repositories;
+using MVC.Services;
 
 namespace MVC
 {
@@ -27,14 +30,14 @@ namespace MVC
         {
             services.AddControllersWithViews();
 
-
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepo<>));
 
             services.AddDbContext<AddDbContext>(op =>
             {
                 op.UseNpgsql(Configuration.GetConnectionString("Default"));
             });
 
-
+            services.AddAutoMapper(typeof(Startup));
 
 
         }
