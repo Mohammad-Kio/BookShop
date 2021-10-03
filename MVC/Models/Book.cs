@@ -11,6 +11,12 @@ namespace MVC.Models
 
         public string Description { get; set; }
 
-        //public List<Comment> Comments{ get; set; }
+        public string ImageUrl { get; set; }
+
+        [MaxLength(30)]
+        public string Isbn { get; set; }
+
+        public List<Author> Authors{ get; set; }
+
     }
 }
