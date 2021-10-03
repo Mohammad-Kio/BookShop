@@ -13,6 +13,9 @@ namespace MVC.Services
         public int Limit { get; set; }
 
         public int Skip { get; set; }
+
+        public Expression<Func<T, bool>> Where { get; set; }
+        
         
     }
 }

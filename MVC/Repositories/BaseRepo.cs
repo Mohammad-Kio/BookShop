@@ -27,6 +27,7 @@ namespace MVC.Repositories
         public async Task<IEnumerable<T>> GetAllAsync(IFilter<T> filter)
         {
             var data = await _db.Set<T>()
+                .Where(filter.Where)
                 .OrderBy(x => filter.OrderBy)
                 .Skip(filter.Skip)
                 .Take(filter.Limit).ToListAsync();
