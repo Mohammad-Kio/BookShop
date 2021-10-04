@@ -1,6 +1,11 @@
-﻿@model MVC.VM.BookAuthorVm
+﻿@model IEnumerable<MVC.VM.BookVm>
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
+@foreach (var book in Model)
+{
+    <h1>@book.Title</h1>
+    <h2>@book.Authors.FirstOrDefault()?.FirstName</h2>
+}
