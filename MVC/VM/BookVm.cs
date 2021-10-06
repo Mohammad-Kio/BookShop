@@ -15,6 +15,8 @@ namespace MVC.VM
 
         public string Isbn { get; set; }
 
+        public string Slug { get; set; }
+
         public IEnumerable<AuthorVm> Authors { get; set; }
     }
 }

@@ -12,6 +12,8 @@ namespace MVC.Models
         [MaxLength(100)]
         public string LastName { get; set; }
 
+        public string Slug { get; set; }
+
         public List<Book> Books { get; set; }
         
     }

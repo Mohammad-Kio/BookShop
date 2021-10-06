@@ -9,6 +9,9 @@ namespace MVC.Services
 
         public Task<T> GetOne(int id);
 
+        public Task<T> GetOne(IFilter<T> filter);
+
+
         public Task<IEnumerable<T>> GetAllAsync(IFilter<T> filter);
 
         public Task<int> Save(T t);

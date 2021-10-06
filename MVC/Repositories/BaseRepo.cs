@@ -40,6 +40,12 @@ namespace MVC.Repositories
             return await _db.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<T> GetOne(IFilter<T> filter)
+        {
+            var query = filter.GetFilter(_db.Set<T>());
+            return await query.FirstOrDefaultAsync();
+        }
+
         public async Task<int> Save(T t)
         {
             await _db.AddAsync(t);

@@ -16,6 +16,8 @@ namespace MVC.Models
         [MaxLength(30)]
         public string Isbn { get; set; }
 
+        public string Slug { get; set; }
+
         public List<Author> Authors{ get; set; }
 
     }
