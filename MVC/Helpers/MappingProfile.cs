@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
+using MVC.Dtos;
 using MVC.Models;
-using MVC.VM;
 
 namespace MVC.Helpers
 {
@@ -9,8 +8,10 @@ namespace MVC.Helpers
     {
         public MappingProfile()
         {
-            CreateMap<Author, AuthorVm>();
-            CreateMap<Book, BookVm>();
+            CreateMap<Comment, CommentDto>();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<Author, AuthorDto>();
+            CreateMap<Book, BookDto>();
         }
     }
 }

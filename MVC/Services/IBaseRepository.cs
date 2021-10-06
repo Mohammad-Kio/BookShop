@@ -17,5 +17,9 @@ namespace MVC.Services
         public Task<int> Save(T t);
 
         public void Delete(T t);
+
+        public Task<ICollection<T>> GetManyAsync(ICollection<int> list);
+
+        public Task<int> Update(T t);
     }
 }

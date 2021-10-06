@@ -9,11 +9,13 @@ namespace MVC.Models
         [Key]
         public int Id { get; set; }
 
-        [Column("Created_at")]
-        public DateTime CreateAt { get; set; }
-
-        [Column("Updated_at")]
-        public DateTime UpdatedAt { get; set; }
+        // // [Column("Created_at")]
+        // [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        // public DateTime CreateAt { get; set; }
+        //
+        // // [Column("Updated_at")]
+        // [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        // public DateTime UpdatedAt { get; set; }
 
     }
 }

@@ -16,9 +16,14 @@ namespace MVC.Models
         [MaxLength(30)]
         public string Isbn { get; set; }
 
+        [MaxLength(260)]
         public string Slug { get; set; }
 
         public List<Author> Authors{ get; set; }
+
+        public IEnumerable<Comment> Comments { get; set; }
+        
+        public List<Category> Categories { get; set; }
 
     }
 }

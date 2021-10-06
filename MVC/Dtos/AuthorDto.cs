@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using MVC.Models;
-
-namespace MVC.VM
+﻿namespace MVC.Dtos
 {
-    public class AuthorVm
+    public class AuthorDto
     {
         public int Id { get; set; }
         
