@@ -8,6 +8,7 @@ namespace MVC.Helpers
     {
         public MappingProfile()
         {
+            CreateMap<Book, UpdateBookDto>();
             CreateMap<Comment, CommentDto>();
             CreateMap<Category, CategoryDto>();
             CreateMap<Author, AuthorDto>();

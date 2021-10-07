@@ -19,9 +19,10 @@ namespace MVC.Repositories
         }
         
 
-        public void Delete(T t)
+        public async void Delete(T t)
         {
             _db.Set<T>().Remove(t);
+            await _db.SaveChangesAsync();
         }
 
         public async Task<ICollection<T>> GetManyAsync(ICollection<int> list)

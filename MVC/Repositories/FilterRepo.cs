@@ -46,7 +46,7 @@ namespace MVC.Repositories
                 }
             }
             
-            if (Limit is not 0)
+            if (Limit != 0)
             {
                 q = q.Take(Limit);
             }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
@@ -8,7 +7,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
 using MVC.Dtos;
 using MVC.Helpers;
 using MVC.Models;
@@ -78,13 +76,13 @@ namespace MVC.Controllers
                 book.Categories.Add(cat);
             }
             
-            var x = await _bookRepo.Save(book);
+            await _bookRepo.Save(book);
 
             
             return Ok(_mapper.Map<BookDto>(book));
         }
 
-        [HttpPost("image/{id}")]
+        [HttpPost("/books/image/{id}")]
         public async Task<IActionResult> AddImage([FromRoute]int id, [Required]IFormFile file)
         {
             // file.CopyToAsync()
@@ -96,16 +94,15 @@ namespace MVC.Controllers
             var book = await _bookRepo.GetOne(id);
 
 
-            var fileName = file.Name
+            var fileName = file.FileName
                                      + "-"
                                      + book.Id
                                      + "."
                                      + file.ContentType.Split("/")[1];
             var filePath = _env.WebRootPath + "/images";
 
-            var file2 = file;
             
-            using (var stream = new FileStream(Path.Combine(filePath, fileName), FileMode.Create))
+            await using (var stream = new FileStream(Path.Combine(filePath, fileName), FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
@@ -116,11 +113,13 @@ namespace MVC.Controllers
             return Ok();
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet("/books/{id}")]
         public async Task<IActionResult> GetBook(int id)
         {
-            var filter = new FilterRepo<Book>();
-            filter.Where = b => b.Id == id;
+            var filter = new FilterRepo<Book>
+            {
+                Where = b => b.Id == id
+            };
             filter.Include.Add(b => b.Authors);
             filter.Include.Add(b => b.Categories);
             filter.Include.Add(b => b.Comments.Take(5));
@@ -129,6 +128,33 @@ namespace MVC.Controllers
 
         }
 
+        [HttpPatch("/books/{id}")]
+        public async Task<IActionResult> UpdateBook(int id, UpdateBookDto bok)
+        {
+            
+            var book = await _bookRepo.GetOne(id);
+            if (book is null)
+                return NotFound($"No book with id {id} was found");
+
+            book.Title = !string.IsNullOrEmpty(bok.Title) ? bok.Title : book.Title;
+            book.Isbn = !string.IsNullOrEmpty(bok.Isbn) ? bok.Isbn : book.Isbn;
+            book.Description= !string.IsNullOrEmpty(bok.Description) ? bok.Description : book.Description;
+            book.Slug = !string.IsNullOrEmpty(bok.Title) ? SlugGen.GenerateBookSlug(bok.Title) : book.Slug;
+            await _bookRepo.Update(book);
+            
+            return Ok(_mapper.Map<UpdateBookDto>(book));
+        }
+
+        [HttpDelete("/books/id")]
+        public async Task<IActionResult> DeleteBook(int id)
+        {
+            var book = await _bookRepo.GetOne(id);
+            if (book is null)
+                return NotFound($"No book with id {id} was found");
+            
+            _bookRepo.Delete(book);
+            return Ok();
+        }
 
     }
 }
