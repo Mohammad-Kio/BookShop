@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,39 @@ namespace MVC.Controllers
             var r = await _bookRepo.GetAllAsync(filter);
             return Ok(_mapper.Map<IEnumerable<BookDto>>(r));
         }
-        
-        
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory([Required]string name)
+        {
+            var cat = new Category()
+            {
+                Name = name
+            };
+
+            await _catRepo.Save(cat);
+            return Ok();
+        }
+        [HttpPatch]
+        public async Task<IActionResult> UpdateCategory([Required]int id, [Required]string name)
+        {
+            var cat = await _catRepo.GetOne(id);
+            if (cat is null)
+                return NotFound(new {error = $"There is no Category with id {id}"});
+            cat.Name = name;
+
+            await _catRepo.Update(cat);
+            return Ok(cat);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            var cat = await _catRepo.GetOne(id);
+            if(cat is null)
+                return NotFound(new {error = $"There is no Category with id {id}"});
+
+            _catRepo.Delete(cat);
+            return Ok();
+        }
     }
 }
