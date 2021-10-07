@@ -1,9 +1,14 @@
-﻿namespace MVC.Dtos
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace MVC.Dtos
 {
     public class CategoryDto
     {
         public int Id { get; set; }
         
         public string Name { get; set; }
+
+        public IEnumerable<BookDto> Books { get; set; }
     }
 }
