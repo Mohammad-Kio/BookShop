@@ -9,6 +9,5 @@ namespace MVC.Dtos
         
         public string Name { get; set; }
 
-        public IEnumerable<BookDto> Books { get; set; }
     }
 }

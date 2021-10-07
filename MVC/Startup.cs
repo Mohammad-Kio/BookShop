@@ -38,6 +38,10 @@ namespace MVC
 
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddControllers()
+                .AddNewtonsoftJson(x =>
+                    x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
 
         }
 
