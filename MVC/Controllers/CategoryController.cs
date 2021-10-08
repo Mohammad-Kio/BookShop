@@ -31,7 +31,7 @@ namespace MVC.Controllers
             return Ok(await _catRepo.GetAllAsync());
         }
         
-        [HttpGet("/{id}")]
+        [HttpGet("/[controller]/{id}")]
         public async Task<IActionResult> GetCategoryWithBooks(int id)
         {
             var cat = await _catRepo.GetOne(id);
@@ -58,8 +58,8 @@ namespace MVC.Controllers
             await _catRepo.Save(cat);
             return Ok();
         }
-        [HttpPatch]
-        public async Task<IActionResult> UpdateCategory([Required]int id, [Required]string name)
+        [HttpPatch("/[controller]/{id}")]
+        public async Task<IActionResult> UpdateCategory([Required][FromRoute]int id, [Required]string name)
         {
             var cat = await _catRepo.GetOne(id);
             if (cat is null)
@@ -69,9 +69,9 @@ namespace MVC.Controllers
             await _catRepo.Update(cat);
             return Ok(cat);
         }
-
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCategory(int id)
+        
+        [HttpDelete("/[controller]/{id}")]
+        public async Task<IActionResult> DeleteCategory([FromRoute]int id)
         {
             var cat = await _catRepo.GetOne(id);
             if(cat is null)
