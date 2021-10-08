@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace MVC.Dtos
 {
@@ -55,5 +52,36 @@ namespace MVC.Dtos
         public string Isbn { get; set; }
     }
     
+    public class ReturnBookDto
+    {
+        public string Title { get; set; }
+
+        public string Description { get; set; } = "";
+
+        public string Isbn { get; set; }
+        
+        public string Slug { get; set; }
+        // public IEnumerable<Category> Categories { get; set; }
+    }
+    
+    
+    public class BooksDto 
+    {
+        public int Id { get; set; }
+        
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        public string Isbn { get; set; }
+
+        public string Slug { get; set; }
+
+        public IEnumerable<AuthorDto> Authors { get; set; }
+
+        public IEnumerable<CategoryDto> Categories { get; set; }
+    }
 }
 

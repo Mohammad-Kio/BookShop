@@ -46,13 +46,13 @@ namespace MVC.Controllers
             }
             
             filter.Include.Add(x => x.Authors);
-            filter.Include.Add(x => x.Categories.Take(5));
+            filter.Include.Add(x => x.Categories);
             filter.OrderBy = x => x.Title;
 
             
             var res = await _bookRepo.GetAllAsync(filter);
 
-            return Ok(_mapper.Map<IEnumerable<BookDto>>(res));
+            return Ok(_mapper.Map<IEnumerable<BooksDto>>(res));
         }
 
 
@@ -65,7 +65,7 @@ namespace MVC.Controllers
                 Title = bok.Title,
                 Isbn = bok.Isbn,
                 Description = bok.Description,
-                Slug = SlugGen.GenerateBookSlug(bok.Title),
+                Slug = SlugGen.GenerateSlug(bok.Title),
                 Categories = new List<Category>()
             };
 
@@ -139,7 +139,7 @@ namespace MVC.Controllers
             book.Title = !string.IsNullOrEmpty(bok.Title) ? bok.Title : book.Title;
             book.Isbn = !string.IsNullOrEmpty(bok.Isbn) ? bok.Isbn : book.Isbn;
             book.Description= !string.IsNullOrEmpty(bok.Description) ? bok.Description : book.Description;
-            book.Slug = !string.IsNullOrEmpty(bok.Title) ? SlugGen.GenerateBookSlug(bok.Title) : book.Slug;
+            book.Slug = !string.IsNullOrEmpty(bok.Title) ? SlugGen.GenerateSlug(bok.Title) : book.Slug;
             await _bookRepo.Update(book);
             
             return Ok(_mapper.Map<UpdateBookDto>(book));

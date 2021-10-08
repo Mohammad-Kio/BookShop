@@ -2,7 +2,7 @@
 {
     public class SlugGen
     {
-        public static string GenerateBookSlug(string title = "")
+        public static string GenerateSlug(string title = "")
         {
             if (string.IsNullOrEmpty(title))
             {

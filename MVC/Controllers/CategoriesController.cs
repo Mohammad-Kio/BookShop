@@ -12,13 +12,13 @@ namespace MVC.Controllers
 {
     [ApiController]
     [Route("/[controller]")]
-    public class CategoryController : ControllerBase
+    public class CategoriesController : ControllerBase
     {
         private readonly IBaseRepository<Category> _catRepo;
         private readonly IMapper _mapper;
         private readonly IBaseRepository<Book> _bookRepo;
 
-        public CategoryController(IBaseRepository<Category> catRepo, IMapper mapper, IBaseRepository<Book> bookRepo)
+        public CategoriesController(IBaseRepository<Category> catRepo, IMapper mapper, IBaseRepository<Book> bookRepo)
         {
             _catRepo = catRepo;
             _mapper = mapper;
